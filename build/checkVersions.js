@@ -1,10 +1,12 @@
+// console 添加颜色
 const chalk = require('chalk')
+// 比较版本大小
 const semver = require('semver')
 const packageConfig = require('../package.json')
+// 获取宿主机命令
 const shell = require('shelljs')
 
-console.log(shell);
-
+// 执行脚本函数
 function exec (cmd) {
   return require('child_process').execSync(cmd).toString().trim()
 }
@@ -25,19 +27,17 @@ if (shell.which('npm')) {
   })
 }
 
-(function () {
+module.exports = function () {
   const warnings = []
-
-  for (let i = 0; i < versionRequirements.length; i++) {
-    const mod = versionRequirements[i]
-
+  versionRequirements.forEach(mod => {
+    // 比较宿主机版本与需求版本
     if (!semver.satisfies(mod.currentVersion, mod.versionRequirement)) {
       warnings.push(mod.name + ': ' +
         chalk.red(mod.currentVersion) + ' should be ' +
         chalk.green(mod.versionRequirement)
       )
     }
-  }
+  })
 
   if (warnings.length) {
     console.log(chalk.yellow('\nTo use this template, you must update following to modules:\n'))
@@ -45,6 +45,7 @@ if (shell.which('npm')) {
         console.log('  ' + warning)
     })
     console.log()
+    // 版本过低 退出程序
     process.exit(1)
   }
-})()
+}
