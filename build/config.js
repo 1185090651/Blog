@@ -37,7 +37,7 @@ module.exports = {
   build: {
     // Paths
     assetsRoot: resolve("dist"),
-    publicPath: {},
+    publicPath: "/",
 
     /**
      * Source Maps

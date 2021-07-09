@@ -1,6 +1,7 @@
 const { resolve } = require('path')
 const config = require('./config.js')
-const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const WebpackBar = require('webpackbar')
+
 module.exports = {
     entry: {
         app: resolve('/src/index.ts')
@@ -18,6 +19,6 @@ module.exports = {
         }
     },
     plugins: [
-        new ProgressBarPlugin()
+        new WebpackBar()
     ]
 }

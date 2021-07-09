@@ -4,4 +4,4 @@ const a = () => {
     return 1
 }
 
-a()
+console.log(a())
