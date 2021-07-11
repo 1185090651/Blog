@@ -1,12 +1,10 @@
 const utils = require("./utils");
-const webpack = require("webpack");
 const { merge } = require("webpack-merge");
 const { resolve } = require("path");
 const config = require("./config.js");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const baseWebpackConfig = require("./webpack.base.config.js");
-// const VueLoaderPlugin = require('vue-loader/lib/plugin')
-// const { resolve } = require('../config/dev.env')
+
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   mode: "development",
@@ -18,21 +16,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true,
   },
   plugins: [
-    // new VueLoaderPlugin(),
-    // new webpack.DefinePlugin({
-    //   'process.env': require('../config/dev.env')
-    // }),
-    // new webpack.HotModuleReplacementPlugin(),
-    // new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
-    // new webpack.NoEmitOnErrorsPlugin(),
-    // // copy custom static assets
-    // new CopyWebpackPlugin([
-    //   {
-    //     from: path.resolve(__dirname, '../static'),
-    //     to: config.dev.assetsSubDirectory,
-    //     ignore: ['.*']
-    //   }
-    // ])
     new HtmlWebpackPlugin({
       filename: resolve("./dist/index.html"), // html模板的生成路径
       template: resolve("./public/index.html"), //html模板
