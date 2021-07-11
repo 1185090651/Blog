@@ -2,8 +2,14 @@ import React from "react";
 import { Form, Input, Button } from "antd";
 import style from "./index.module.scss";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+
+interface loginData {
+    username: string,
+    password: string
+}
+
 export default function Login() {
-  const onFinish = (values: any) => {
+  const onFinish = (values: loginData) => {
     console.log("Success:", values);
   };
 
