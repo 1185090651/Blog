@@ -1,20 +1,35 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
 import style from "./index.module.scss";
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { loginPending, loginSuccess, loginError } from "@/store/actions/login";
+import request from "@/request";
 
-interface loginData {
-    username: string,
-    password: string
+interface LoginParams {
+  username: string;
+  password: string;
 }
 
 export default function Login() {
-  const onFinish = (values: loginData) => {
-    console.log("Success:", values);
+  const dispatch = useDispatch();
+  const onFinish = async (data: LoginParams) => {
+    dispatch(loginPending());
+    const res = await request({
+      url: "/api/login",
+      method: "POST",
+      data,
+    }).catch((error) => {
+      dispatch(loginError(error));
+    });
+    if (res) {
+      dispatch(loginSuccess(res));
+    }
+    console.log("Success:", data);
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+  const onFinishFailed = (error: any) => {
+    dispatch(loginError(error));
   };
   return (
     <div className={style.login}>
@@ -40,7 +55,13 @@ export default function Login() {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" size="large" className={style['form-btn']} loading={false}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            size="large"
+            className={style["form-btn"]}
+            loading={false}
+          >
             登录
           </Button>
         </Form.Item>

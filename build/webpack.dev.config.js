@@ -14,6 +14,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     port: 8000,
     hot: true,
     quiet: true,
+    proxy: config.dev.proxy
   },
   plugins: [
     new HtmlWebpackPlugin({

@@ -28,9 +28,11 @@
     "@babel/preset-typescript": "^7.14.5",
     "@babel/runtime-corejs2": "^7.14.6",
     "@types/antd": "^1.0.0",
+    "@types/qs": "^6.9.7",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.1.8",
+    "@types/redux-logger": "^3.0.9",
     "babel-loader": "^8.2.2",
     "babel-plugin-import": "^1.13.3",
     "chalk": "^4.1.1",
@@ -39,6 +41,8 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.2",
     "node-sass": "^6.0.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-logger": "^3.0.6",
     "rimraf": "^3.0.2",
     "sass-loader": "^12.1.0",
     "semver": "^7.3.5",
@@ -53,9 +57,14 @@
   },
   "dependencies": {
     "antd": "^4.16.6",
+    "axios": "^0.21.1",
+    "qs": "^6.10.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
+    "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0",
     "styled-components": "^5.3.0"
   }
 }

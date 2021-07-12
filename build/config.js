@@ -13,6 +13,16 @@ module.exports = {
     errorOverlay: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
+    proxy: {
+      '/api': {
+        target: 'http://localhost:9527',
+        pathRewrite: {
+          '/api': '/'
+        },
+        changeOrigin: true
+      } 
+    },
+
     // Use Eslint Loader?
     // If true, your code will be linted during bundling and
     // linting errors and warnings will be shown in the console.
