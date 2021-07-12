@@ -1,9 +1,11 @@
 import { LOGIN_PENDING, LOGIN_SUCCESS, LOGIN_ERROR } from '../constants';
 
-const initialState = {
+
+const initialState: UserState = {
     user: {},
     loading: false,
-    error: null
+    error: null,
+    isLogin: false
 }
 
 interface User{
@@ -14,10 +16,11 @@ interface User{
 export interface UserState {
     user: User,
     loading: Boolean,
-    error: string|null
+    error: string|null,
+    isLogin: Boolean
 }
 
-export const user = (state = initialState, action: any) => {
+export const user = (state = initialState, action: any): any => {
     switch(action.type) {
         case LOGIN_PENDING:
             return {
@@ -25,7 +28,7 @@ export const user = (state = initialState, action: any) => {
             }
         case LOGIN_SUCCESS:
             return {
-                ...state, user: action.user, loading: false
+                ...state, user: action.user, loading: false, isLogin: true
             }
         case LOGIN_ERROR:
             return {

@@ -10,7 +10,7 @@ router.post('/login', async ctx => {
         ctx.throw(422, 'Not found username or password')
     }
     try {
-        const res = await find(userModel, { username, password: crypto(password) }, { password: 0 })
+        const res = await find(userModel, { username, password: crypto(password) }, { password: 0,__v: 0, _id: 0 })
         ctx.body = {
             ...res[0],
             token: createToken({ ...res[0] })

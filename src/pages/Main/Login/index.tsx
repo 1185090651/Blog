@@ -3,7 +3,7 @@ import { Form, Input, Button } from "antd";
 import style from "./index.module.scss";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { loginPending, loginSuccess, loginError } from "@/store/actions/login";
+import { loginPending, loginSuccess, loginError, } from "@/store/actions/login";
 import request from "@/request";
 
 interface LoginParams {
@@ -16,13 +16,14 @@ export default function Login() {
   const onFinish = async (data: LoginParams) => {
     dispatch(loginPending());
     const res = await request({
-      url: "/api/login",
+      url: "/api/user/login",
       method: "POST",
       data,
     }).catch((error) => {
       dispatch(loginError(error));
     });
     if (res) {
+      localStorage.token = res.token;
       dispatch(loginSuccess(res));
     }
     console.log("Success:", data);
