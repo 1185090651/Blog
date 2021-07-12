@@ -9,12 +9,14 @@ router.post('/login', async ctx => {
     if (!username || !password) {
         ctx.throw(422, 'Not found username or password')
     }
-    const res = await find(userModel, { username, password: crypto(password) }, { password: 0 }).catch(err => {
-        ctx.throw(500, err)
-    })
-    ctx.body = {
-        ...res[0],
-        token: createToken({ ...res[0] })
+    try {
+        const res = await find(userModel, { username, password: crypto(password) }, { password: 0 })
+        ctx.body = {
+            ...res[0],
+            token: createToken({ ...res[0] })
+        }
+    } catch (error) {
+        ctx.throw(500, error)
     }
 })
 
@@ -23,11 +25,24 @@ router.post('/register', async ctx => {
     if (!username || !password) {
         ctx.throw(422, 'Not found username or password')
     }
-    await insert(userModel, [{ username, password: crypto(password) }]).catch(err => {
-        ctx.throw(500, err)
-    })
-    ctx.body = {
-        message: '注册成功'
+    try {
+        const res = await find(userModel, { username })
+        console.log(res);
+        if(res.length) {
+            return ctx.body = {
+                message: '用户名已存在！'
+            }
+        }
+    } catch (error) {
+        ctx.throw(500, error)
+    }
+    try {
+        await insert(userModel, [{ username, password: crypto(password) }])
+        ctx.body = {
+            message: '注册成功'
+        }
+    } catch (error) {
+        ctx.throw(500, error)
     }
 })
 
