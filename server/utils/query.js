@@ -2,7 +2,7 @@ module.exports = {
   //第二个字段可以设置要查询的字段，1表示输出该字段，0表示不输出该字段
   find(CollectionName, whereObj, showObj) {
     return new Promise((resolve, reject) => {
-      CollectionName.find(whereObj, showObj).exec((err, data) => {
+      CollectionName.find(whereObj, showObj).lean().exec((err, data) => {
         if (err) reject(err);
         resolve(data);
       });
