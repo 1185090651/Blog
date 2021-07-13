@@ -1,5 +1,5 @@
 const router = require('koa-router')()
-const userModel = require('../../models/login')
+const userModel = require('../../models/user')
 const { find, insert } = require('../../utils/query')
 
 router.post('/', async ctx => {
