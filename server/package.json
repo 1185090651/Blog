@@ -10,9 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "humanize-number": "^0.0.2",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
     "koa-router": "^10.0.0",
-    "mongoose": "^5.13.2"
+    "mongoose": "^5.13.2",
+    "passthrough-counter": "^1.0.0"
   }
 }

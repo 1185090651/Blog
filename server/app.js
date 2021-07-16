@@ -10,7 +10,7 @@ const app = new Koa()
 app.use(bodyParser())
 app.use(logger())
 
-// app.use(author())
+app.use(author())
 
 app.use(router.routes())
 app.use(router.allowedMethods())

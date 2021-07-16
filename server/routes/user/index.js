@@ -1,8 +1,8 @@
 const router = require('koa-router')()
-const userModel = require('../../models/login')
+const userModel = require('../../models/user')
 const { find, insert } = require('../../utils/query')
 const crypto = require('../../utils/crypto')
-const createToken = require('../../utils/createToken')
+const { createToken } = require('../../utils/token')
 
 router.post('/login', async ctx => {
     const { username, password } = ctx.request.body;
@@ -27,7 +27,6 @@ router.post('/register', async ctx => {
     }
     try {
         const res = await find(userModel, { username })
-        console.log(res);
         if(res.length) {
             return ctx.body = {
                 message: '用户名已存在！'

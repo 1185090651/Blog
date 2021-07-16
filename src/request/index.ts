@@ -16,7 +16,13 @@ const service: AxiosInstance = axios.create({
 
 service.interceptors.request.use(
     (config: AxiosRequestConfig) => {
-        return config;
+        return {
+            ...config,
+            headers: {
+                ...config.headers,
+                token: localStorage.token
+            }
+        };
     },
     (error: AxiosError) => {
         return Promise.reject(error);

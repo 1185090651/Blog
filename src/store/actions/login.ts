@@ -19,3 +19,10 @@ export const loginError = (error: string) => {
         error
     }
 }
+
+export const login = (user: any) => {
+    return {
+        type: LOGIN_SUCCESS,
+        user
+    }
+}
