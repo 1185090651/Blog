@@ -1,5 +1,4 @@
 const Koa = require('koa')
-require('./db')
 const router = require('./routes')
 const bodyParser = require('./middleware/bodyParser')
 const author = require('./middleware/author')
@@ -16,7 +15,4 @@ app.use(router.routes())
 app.use(router.allowedMethods())
 
 
-
-app.listen(9527, () => {
-    console.log('server is running at http://localhost:9527')
-})
+module.exports = app;

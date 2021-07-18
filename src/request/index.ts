@@ -37,6 +37,9 @@ service.interceptors.response.use(
         return res.data
     },
     (error: AxiosError) => {
+        if(error.response?.status === 403) {
+            location.href = '#/login'
+        }
         return Promise.reject(error.message)
     }
 );

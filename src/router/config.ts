@@ -1,7 +1,9 @@
+import { lazy } from 'react';
 // 路由配置表
 // 一级路由
 import Main from '../pages/Main';
-import Login from '../pages/Main/Login/index';
+const Login = lazy(() => import('../pages/Main/Login/index'));
+const Dashboard = lazy(() => import('../pages/Main/Dashboard'));
 const routes = [
     {
         path:'/',
@@ -9,8 +11,11 @@ const routes = [
         children: [
             {
                 path:'/login',
-                component: Login,
-                children:[]
+                component: Login
+            },
+            {
+                path: '/dashboard',
+                component: Dashboard
             }
         ]
     }

@@ -1,21 +1,26 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import RouterView from "@/router/index";
 import { Link } from "react-router-dom";
 import style from "./index.module.scss";
 import logo from "@/assets/images/logo.png";
 import request from "@/request";
-import { loginSuccess } from "@/store/actions/login";
+import { loginSuccess, loginPending, loginError } from "@/store/actions/login";
+import { LoadingOutlined } from "@ant-design/icons";
+import Header from "./components/Header";
 
 export default function Main(props: any) {
-  const { isLogin, user } = useSelector((state: any) => state.user);
+  const { isLogin, user, loading } = useSelector((state: any) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
     (async () => {
       if (localStorage.token) {
+        dispatch(loginPending());
         const res = await request({
           url: "/api/admin/token",
           method: "POST",
+        }).catch((err) => {
+          dispatch(loginError(err));
         });
         dispatch(loginSuccess(res));
       }
@@ -23,18 +28,23 @@ export default function Main(props: any) {
   }, []);
   return (
     <div className={style.main}>
-      <header className={style.header}>
+      <Header>
         <img className={style.logo} src={logo} alt="logo" />
         <div className={style.options}>
-          {isLogin ? (
-            <Link to={"/dashboard"}>{user.username}</Link>
+          {loading ? (
+            <LoadingOutlined style={{ fontSize: 20 }} />
+          ) : isLogin ? (
+            <Link to={"/dashboard"}>{user?.username}</Link>
           ) : (
             <Link to={"/login"}>登录</Link>
           )}
         </div>
-      </header>
+      </Header>
+      <div className={style.placeholder} />
       <main className={style.container}>
-        <RouterView routes={props.routes} />
+        <Suspense fallback={<div></div>}>
+          <RouterView routes={props.routes} />
+        </Suspense>
       </main>
     </div>
   );
