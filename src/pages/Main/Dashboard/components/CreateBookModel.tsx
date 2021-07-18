@@ -26,7 +26,9 @@ const CreateBookModel: React.FC<Props> = ({ visible, setVisible }) => {
       })
       setConfirmLoading(false)
   };
-  const handleCancel = () => {};
+  const handleCancel = () => {
+      setVisible(false)
+  };
   return (
     <Modal
       title="新建知识库"
