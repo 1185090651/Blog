@@ -27,8 +27,7 @@ mongoose
       dbName: 'test'
     });
     app.listen(PORT, () => {
-      console.log("server is running at");
-      console.log("\x1b[32m", "http://localhost:9527");
+      console.log("server is running at http://localhost:9527");
     });
   } catch (err) {
     console.log(err);
