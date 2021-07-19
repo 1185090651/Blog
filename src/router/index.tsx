@@ -18,7 +18,7 @@ const RouterView = (props:any) => {
               key={index}
               path={item.path}
               render={props => {
-                if (item.children.length) {
+                if (item.children?.length) {
                   return <item.component {...props} routes={item.children} />;
                 } else {
                   return <item.component {...props} />;

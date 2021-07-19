@@ -16,7 +16,13 @@ const service: AxiosInstance = axios.create({
 
 service.interceptors.request.use(
     (config: AxiosRequestConfig) => {
-        return config;
+        return {
+            ...config,
+            headers: {
+                ...config.headers,
+                token: localStorage.token
+            }
+        };
     },
     (error: AxiosError) => {
         return Promise.reject(error);
@@ -31,6 +37,9 @@ service.interceptors.response.use(
         return res.data
     },
     (error: AxiosError) => {
+        if(error.response?.status === 403) {
+            location.href = '#/login'
+        }
         return Promise.reject(error.message)
     }
 );

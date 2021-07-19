@@ -1,0 +1,18 @@
+.wrapper {
+    width: 100%;
+    :global(.ant-card-body) {
+        padding: 0;
+    }
+    .head {
+        position: relative;
+        :global(.ant-btn) {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+}
+.form-label {
+    margin-bottom: 12px;
+}

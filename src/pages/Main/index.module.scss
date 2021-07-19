@@ -1,36 +1,30 @@
 .main {
-    height: 100%;
-    width: 100%;
-    .header {
-        z-index: 101;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 64px;
-        width: 100%;
-        background-color: hsla(0,0%,100%,0.8);
-        box-shadow: inset 0 -1px 0 0 rgba(0,0,0,0.1);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 200px;
-        transition: box-shadow .1s ease 0s,background-color .1s ease 0s;
-        .logo {
-            width: 64px;
-            height: 64px;
-        }
-        .options {
-            color: #666;
-            a {
-                color: #666;
-                transition: color .2s ease;
-                &:hover {
-                    color: #222;
-                }
-            }
-        }
+  height: 100%;
+  width: 100%;
+  .logo {
+    width: 64px;
+    height: 64px;
+  }
+  .options {
+    width: 80px;
+    text-align: center;
+    color: #666;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    a {
+      color: #666;
+      transition: color 0.2s ease;
+      &:hover {
+        color: #222;
+      }
     }
-    .container {
-        padding-top: 64px;
-    }
+  }
+  .placeholder {
+      height: 64px;
+  }
+  .container {
+    background-color: #fafafa;
+    height: calc(100% - 64px);
+  }
 }

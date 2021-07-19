@@ -11,7 +11,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,
   devServer: {
-    port: 8000,
+    port: 3000,
     hot: true,
     quiet: true,
     proxy: config.dev.proxy
