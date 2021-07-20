@@ -4,7 +4,7 @@ import style from "./index.module.scss";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
-import { loginPending, loginSuccess, loginError } from "@/store/actions/login";
+import { loginPending, loginSuccess, loginError, login } from "@/store/actions/login";
 import request from "@/request";
 
 interface LoginParams {
@@ -17,21 +17,22 @@ export default function Login() {
   const history = useHistory();
   const loading = useSelector((state: any) => state.user.loading);
   const onFinish = async (data: LoginParams) => {
-    dispatch(loginPending());
-    const res = await request({
-      url: "/api/user/login",
-      method: "POST",
-      data,
-    }).catch((error) => {
-      dispatch(loginError(error));
-      message.error(error);
-    });
-    if (res) {
-      localStorage.token = res.token;
-      dispatch(loginSuccess(res));
-      message.success("登录成功!");
-      history.push('/dashboard')
-    }
+    dispatch(login(data))
+    // dispatch(loginPending());
+    // const res = await request({
+    //   url: "/api/user/login",
+    //   method: "POST",
+    //   data,
+    // }).catch((error) => {
+    //   dispatch(loginError(error));
+    //   message.error(error);
+    // });
+    // if (res) {
+    //   localStorage.token = res.token;
+    //   dispatch(loginSuccess(res));
+    //   // message.success("登录成功!");
+    //   history.push('/dashboard')
+    // }
   };
   const onFinishFailed = (error: any) => {
     dispatch(loginError(error));
