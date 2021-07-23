@@ -1,7 +1,10 @@
 const { merge } = require("webpack-merge");
 const config = require("./config.js");
 const utils = require("./utils.js");
+const { resolve } = require("path");
 const baseWebpackConfig = require("./webpack.base.config.js");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const webpackConfig = merge(baseWebpackConfig, {
   mode: "production",
@@ -11,6 +14,33 @@ const webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath("js/[id].[chunkhash].js"),
     crossOriginLoading: "anonymous",
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      filename: resolve("./dist/index.html"), // html模板的生成路径
+      template: resolve(utils.assetsPath("index.html")), //html模板
+      favicon: resolve(utils.assetsPath("favicon.ico")),
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
+      },
+    }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "public/css/[name].[contenthash:8].css",
+      chunkFilename: "public/css/[name].[contenthash:8].chunk.css",
+      ignoreOrder: true
+    }),
+  ],
 });
 
 if (config.build.productionGzip) {

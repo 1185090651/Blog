@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODE_ENV=development webpack serve --config build/webpack.dev.config.js",
+    "start": "cross-env NODE_ENV=development node build/start.js",
     "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.config.js"
   },
   "keywords": [
@@ -39,8 +39,11 @@
     "cross-env": "^7.0.3",
     "css-loader": "^5.2.6",
     "file-loader": "^6.2.0",
+    "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^5.3.2",
+    "mini-css-extract-plugin": "^2.1.0",
     "node-sass": "^6.0.1",
+    "portfinder": "^1.0.28",
     "redux-devtools-extension": "^2.13.9",
     "redux-logger": "^3.0.6",
     "rimraf": "^3.0.2",
@@ -51,6 +54,7 @@
     "typescript": "^4.3.5",
     "url-loader": "^4.1.1",
     "webpack": "^5.42.0",
+    "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2",
     "webpackbar": "^5.0.0-3"

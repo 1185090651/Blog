@@ -22,7 +22,9 @@ export default function Main(props: any) {
         }).catch((err) => {
           dispatch(loginError(err));
         });
-        dispatch(loginSuccess(res));
+        if(res) {
+          dispatch(loginSuccess(res));
+        }
       }
     })();
   }, []);

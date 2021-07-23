@@ -2,6 +2,30 @@ const { resolve } = require("path");
 const config = require("./config.js");
 const utils = require("./utils.js");
 const WebpackBar = require("webpackbar");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+// style files regexes
+const cssRegex = /\.css$/;
+const cssModuleRegex = /\.module\.css$/;
+const sassRegex = /\.(scss|sass)$/;
+const sassModuleRegex = /\.module\.(scss|sass)$/;
+
+// common function to get style loaders
+const getStyleLoaders = (isModule, preProcessor) => {
+  const loaders = [
+    config.ENV === "dev" ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
+    {
+      loader: require.resolve('css-loader'),
+      options: isModule ? {
+        modules: {
+          localIdentName: "[local]_[hash:base64:5]",
+        }
+      } : {}
+    },
+    preProcessor && require.resolve(preProcessor)
+  ].filter(Boolean)
+  return loaders;
+}
 
 module.exports = {
   entry: {
@@ -24,65 +48,63 @@ module.exports = {
         ],
       },
       {
-        test: /\.css$/,
-        use: [
-          // 创建 <style></style>
-          {
-            loader: "style-loader",
-          },
-          // 转换css
-          {
-            loader: "css-loader"
-          },
-        ],
+        test: cssRegex,
+        exclude: cssModuleRegex,
+        use: getStyleLoaders()
       },
       {
-        test: /\.scss$/,
-        use: [
-          {
-            loader: "style-loader",
-          },
-          {
-            loader: "css-loader",
-            options: {
-              modules: {
-                localIdentName: "[local]_[hash:base64:5]",
-              },
-            },
-          },
-          {
-            loader: "sass-loader", // 编译 scss -> CSS
-          },
-        ],
+        test: cssModuleRegex,
+        use: getStyleLoaders(true)
+      },
+      {
+        test: sassRegex,
+        exclude: sassModuleRegex,
+        use: getStyleLoaders(false, 'sass-loader')
+      },
+      {
+        test: sassModuleRegex,
+        use: getStyleLoaders(true, 'sass-loader')
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: "url-loader",
-        options: {
-          limit: 10000,
-          name: utils.assetsPath("img/[name].[hash:7].[ext]"),
+        type: "asset",
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024, // 10kb
+          },
+        },
+        generator: {
+          filename: utils.assetsPath("img/[name].[hash:7].[ext]"),
         },
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-        loader: "url-loader",
-        options: {
-          limit: 10000,
-          name: utils.assetsPath("media/[name].[hash:7].[ext]"),
+        type: "asset",
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024, // 10kb
+          },
+        },
+        generator: {
+          filename: utils.assetsPath("media/[name].[hash:7].[ext]"),
         },
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: "url-loader",
-        options: {
-          limit: 10000,
-          name: utils.assetsPath("fonts/[name].[hash:7].[ext]"),
+        type: "asset",
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024, // 10kb
+          },
+        },
+        generator: {
+          filename: utils.assetsPath("font/[name].[hash:7].[ext]"),
         },
       },
     ],
   },
   resolve: {
-    extensions: [".js", ".ts", ".tsx", "jsx", ".json"],
+    extensions: [".js", ".ts", ".tsx", "jsx", ".json", "..."], // The option will override the default array, use ... to access the default extensions
     alias: {
       "@": resolve("src"),
       public: resolve("public"),

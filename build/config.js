@@ -1,14 +1,19 @@
-const { resolve } = require("path");
+const { resolve, posix } = require("path");
+
+
 
 module.exports = {
   // 当前环境
   ENV: process.env.NODE_ENV === "production" ? "build" : "dev",
   publicDir: "public",
+  assetsPath: function(_path) {
+    return posix.join(this.publicDir, _path)
+  },
   dev: {
     publicPath: "/",
     // Various Dev Server settings
     host: "127.0.0.1", // can be overwritten by process.env.HOST
-    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: 3000, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
@@ -65,6 +70,6 @@ module.exports = {
 
     // View the bundle analyzer report after build finishes:
     // Set to `true` or `false` to always turn it on or off
-    bundleAnalyzerReport: false,
+    // bundleAnalyzerReport: true,
   }
 };

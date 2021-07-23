@@ -5,3 +5,7 @@ const config = require('./config.js')
 exports.assetsPath = function(_path) {
     return path.posix.join(config.publicDir, _path)
 }
+
+exports.getStyleLoaders = function() {
+    
+}
