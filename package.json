@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=development node build/start.js",
-    "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.config.js"
+    "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.config.js",
+    "lint:fe": "eslint --fix --ext .tsx,.ts src/",
+    "lint:server": "eslint --fix --ext .js server/"
   },
   "keywords": [
     "webpack",
@@ -33,11 +35,15 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.1.8",
     "@types/redux-logger": "^3.0.9",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
     "babel-loader": "^8.2.2",
     "babel-plugin-import": "^1.13.3",
     "chalk": "^4.1.1",
     "cross-env": "^7.0.3",
     "css-loader": "^5.2.6",
+    "eslint": "^7.31.0",
+    "eslint-webpack-plugin": "^3.0.1",
     "file-loader": "^6.2.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^5.3.2",

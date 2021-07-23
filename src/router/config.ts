@@ -6,11 +6,11 @@ const Login = lazy(() => import('../pages/Main/Login/index'));
 const Dashboard = lazy(() => import('../pages/Main/Dashboard'));
 const routes = [
     {
-        path:'/',
+        path: '/',
         component: Main,
         children: [
             {
-                path:'/login',
+                path: '/login',
                 component: Login
             },
             {
@@ -19,5 +19,5 @@ const routes = [
             }
         ]
     }
-]
+];
 export default routes;

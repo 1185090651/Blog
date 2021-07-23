@@ -7,4 +7,4 @@ export interface IState {
 
 export default combineReducers({
     user
-})
+});

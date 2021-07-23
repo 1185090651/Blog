@@ -1,7 +1,7 @@
 import React from 'react';
-import style from './index.module.scss'
+import style from './index.module.scss';
 
-const Header: React.FC = ({children}) => {
+const Header: React.FC = ({ children }) => {
     return (
         <header className={style.header}>
             <div className={style['header-container']}>
@@ -9,6 +9,6 @@ const Header: React.FC = ({children}) => {
             </div>
         </header>
     );
-}
+};
 
 export default Header;
