@@ -120,7 +120,6 @@ module.exports = {
     plugins: [
         new WebpackBar(),
         new ESLintPlugin({
-            // Plugin options
             extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
             eslintPath: require.resolve('eslint'),
             failOnError: !config.ENV === 'dev',
@@ -128,6 +127,7 @@ module.exports = {
             cache: true,
         }),
         new StylelintWebpackPlugin({
+            extensions: ['css', 'scss'],
             context: resolve('src'),
             fix: true,
             failOnError: !config.ENV === 'dev'
