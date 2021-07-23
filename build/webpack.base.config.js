@@ -4,6 +4,7 @@ const utils = require('./utils.js');
 const WebpackBar = require('webpackbar');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
 
 // style files regexes
 const cssRegex = /\.css$/;
@@ -126,5 +127,10 @@ module.exports = {
             context: resolve('src'),
             cache: true,
         }),
+        new StylelintWebpackPlugin({
+            context: resolve('src'),
+            fix: true,
+            failOnError: !config.ENV === 'dev'
+        })
     ],
 };

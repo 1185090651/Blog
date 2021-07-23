@@ -1,30 +1,36 @@
 .main {
-  height: 100%;
   width: 100%;
+  height: 100%;
+
   .logo {
     width: 64px;
     height: 64px;
   }
+
   .options {
     width: 80px;
-    text-align: center;
-    color: #666;
     overflow: hidden;
+    color: #666;
     white-space: nowrap;
+    text-align: center;
     text-overflow: ellipsis;
+
     a {
       color: #666;
       transition: color 0.2s ease;
+
       &:hover {
         color: #222;
       }
     }
   }
+
   .placeholder {
-      height: 64px;
+    height: 64px;
   }
+
   .container {
-    background-color: #fafafa;
     height: calc(100% - 64px);
+    background-color: #fafafa;
   }
 }
