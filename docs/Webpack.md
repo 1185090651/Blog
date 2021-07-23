@@ -617,7 +617,7 @@ Prior to webpack 5 it was common to use:
 - `url-loader` to inline a file into the bundle as a data URI
 - `raw-loader` to import a file as a string
 
-`url-loader` includes `file-loader`. We only need config the limit size，`url-loader` will choose the correct loader to handle it automatically.
+`url-loader` includes `file-loader`. We only need configure the limit size，`url-loader` will choose the correct loader to handle it automatically.
 
 Asset Module type replaces all of these loaders by adding 4 new module types: 
 
