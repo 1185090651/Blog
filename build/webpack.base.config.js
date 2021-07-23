@@ -14,16 +14,20 @@ const sassModuleRegex = /\.module\.(scss|sass)$/;
 // common function to get style loaders
 const getStyleLoaders = (isModule, preProcessor) => {
     const loaders = [
-        config.ENV === 'dev' ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
+        config.ENV === 'dev'
+            ? require.resolve('style-loader')
+            : MiniCssExtractPlugin.loader,
         {
             loader: require.resolve('css-loader'),
-            options: isModule ? {
-                modules: {
-                    localIdentName: '[local]_[hash:base64:5]',
+            options: isModule
+                ? {
+                    modules: {
+                        localIdentName: '[local]_[hash:base64:5]',
+                    },
                 }
-            } : {}
+                : {},
         },
-        preProcessor && require.resolve(preProcessor)
+        preProcessor && require.resolve(preProcessor),
     ].filter(Boolean);
     return loaders;
 };
@@ -51,20 +55,20 @@ module.exports = {
             {
                 test: cssRegex,
                 exclude: cssModuleRegex,
-                use: getStyleLoaders()
+                use: getStyleLoaders(),
             },
             {
                 test: cssModuleRegex,
-                use: getStyleLoaders(true)
+                use: getStyleLoaders(true),
             },
             {
                 test: sassRegex,
                 exclude: sassModuleRegex,
-                use: getStyleLoaders(false, 'sass-loader')
+                use: getStyleLoaders(false, 'sass-loader'),
             },
             {
                 test: sassModuleRegex,
-                use: getStyleLoaders(true, 'sass-loader')
+                use: getStyleLoaders(true, 'sass-loader'),
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -112,29 +116,15 @@ module.exports = {
             '~': resolve('node_modules'),
         },
     },
-    plugins: [new WebpackBar(),
+    plugins: [
+        new WebpackBar(),
         new ESLintPlugin({
             // Plugin options
             extensions: ['js', 'mjs', 'jsx', 'ts', 'tsx'],
-            // formatter: require.resolve('react-dev-utils/eslintFormatter'),
             eslintPath: require.resolve('eslint'),
-            // failOnError: !(isEnvDevelopment && emitErrorsAsWarnings),
+            failOnError: !config.ENV === 'dev',
             context: resolve('src'),
             cache: true,
-            // cacheLocation: path.resolve(
-            //   paths.appNodeModules,
-            //   '.cache/.eslintcache'
-            // ),
-            // ESLint class options
-            // cwd: paths.appPath,
-            resolvePluginsRelativeTo: __dirname,
-            baseConfig: {
-                // extends: [require.resolve('eslint-config-react-app/base')],
-                // rules: {
-                //   ...(!hasJsxRuntime && {
-                //     'react/react-in-jsx-scope': 'error',
-                //   }),
-                // },
-            },
-        }), ],
+        }),
+    ],
 };
