@@ -16,11 +16,11 @@ module.exports = () => {
                 try {
                     // 解token
                     analysisToken(raw);
-                    await next();
                 } catch (err) {
                     console.log(err);
                     ctx.throw(403, 'No access');
                 }
+                await next();
             } else {
                 await next();
             }

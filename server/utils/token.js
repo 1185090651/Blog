@@ -6,5 +6,5 @@ exports.createToken = target => {
 };
 
 exports.analysisToken = token => {
-    return jwt.verify(token, tokenSecret).username;
+    return jwt.verify(token, tokenSecret);
 };

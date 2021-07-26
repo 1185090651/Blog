@@ -9,11 +9,15 @@ router.post('/login', async ctx => {
         ctx.throw(422, 'Not found username or password');
     }
     try {
-        const res = await userModel.find({ username, password: crypto(password) }, { password: 0, _id: 0 }).lean();
-        ctx.body = {
-            ...res[0],
-            token: createToken({ ...res[0] })
-        };
+        const res = await userModel.find({ username, password: crypto(password) }, { password: 0 }).lean();
+        if (res.length) {
+            ctx.body = {
+                ...res[0],
+                token: createToken({ ...res[0] })
+            };
+        } else {
+            ctx.throw(401, '用户名不存在或密码错误');
+        }
     } catch (error) {
         ctx.throw(500, error);
     }
