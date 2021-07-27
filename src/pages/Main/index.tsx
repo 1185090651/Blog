@@ -8,9 +8,10 @@ import request from '@/request';
 import { loginSuccess, loginPending, loginError } from '@/store/actions/login';
 import { LoadingOutlined } from '@ant-design/icons';
 import Header from './components/Header';
+import { IState } from '@/store/reducers';
 
 export default function Main (props: any) {
-    const { isLogin, user, loading } = useSelector((state: any) => state.user);
+    const { isLogin, user, loading } = useSelector((state: IState) => state.user);
     const dispatch = useDispatch();
     useEffect(() => {
         (async () => {

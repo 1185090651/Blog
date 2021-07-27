@@ -1,5 +1,6 @@
 import { message } from 'antd';
 import request from '@/request';
+import { Dispatch } from 'redux';
 import { LOGIN_PENDING, LOGIN_SUCCESS, LOGIN_ERROR } from '../constants';
 
 export const loginPending = () => {
@@ -22,15 +23,13 @@ export const loginError = (error: string) => {
     };
 };
 
-// export const login = (user: any) => {
-//     return {
-//         type: LOGIN_SUCCESS,
-//         user
-//     }
-// }
+export interface LoginParams {
+    username: string;
+    password: string;
+}
 
-export const login = (data: any) => {
-    return async (dispatch: any) => {
+export const login = (data: LoginParams) => {
+    return async (dispatch: Dispatch) => {
         dispatch(loginPending());
         const res = await request({
             url: '/api/user/login',

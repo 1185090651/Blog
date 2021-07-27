@@ -15,12 +15,12 @@ interface User{
 
 export interface UserState {
     user: User,
-    loading: Boolean,
+    loading: boolean,
     error: string|null,
     isLogin: Boolean
 }
 
-export const user = (state = initialState, action: any): any => {
+export const user = (state = initialState, action: any): UserState => {
     switch (action.type) {
         case LOGIN_PENDING:
             return {

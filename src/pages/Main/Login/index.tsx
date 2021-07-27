@@ -1,18 +1,15 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 import style from './index.module.scss';
+import { IState } from '@/store/reducers';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '@/store/actions/login';
+import { login, LoginParams } from '@/store/actions/login';
 
-interface LoginParams {
-  username: string;
-  password: string;
-}
 
 export default function Login () {
     const dispatch = useDispatch();
-    const loading = useSelector((state: any) => state.user.loading);
+    const loading = useSelector((state: IState) => state.user.loading);
     const onFinish = async (data: LoginParams) => {
         dispatch(login(data));
     };
