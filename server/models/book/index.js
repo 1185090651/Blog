@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const articleSchema = new Schema({
     title: { type: String, required: true },
     content: String,
+    bookId: { type: Schema.Types.ObjectId, required: true }
 }, { timestamps: true, versionKey: false });
 
 const bookSchema = new Schema({
