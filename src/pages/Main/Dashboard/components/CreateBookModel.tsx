@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 const { TextArea } = Input;
 import request from '@/request';
 
-interface Props {
+interface IProps {
   visible: boolean;
   setVisible: Function;
 }
 
-const CreateBookModel: React.FC<Props> = ({ visible, setVisible }) => {
+const CreateBookModel: React.FC<IProps> = ({ visible, setVisible }) => {
     // 异步添加
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [form] = Form.useForm();
@@ -18,14 +18,21 @@ const CreateBookModel: React.FC<Props> = ({ visible, setVisible }) => {
         setConfirmLoading(true);
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const res = await request({
-            url: '/book',
+            url: '/api/admin/book',
             method: 'POST',
             data
+        }).catch(err => {
+            notification.error({
+                message: err
+            });
         });
-        notification.success({
-            message: '新建知识库成功!'
-        });
+        if (res) {
+            notification.success({
+                message: '新建知识库成功!'
+            });
+        }
         setConfirmLoading(false);
+        setVisible(false);
     };
     const handleCancel = () => {
         setVisible(false);
@@ -43,7 +50,7 @@ const CreateBookModel: React.FC<Props> = ({ visible, setVisible }) => {
             <Form layout="vertical" form={form}>
                 <Form.Item
                     label="名称"
-                    name="username"
+                    name="name"
                     rules={[{ required: true, message: '请输入知识库名称!' }]}
                 >
                     <Input placeholder="如: 产品文档" autoComplete="off" />

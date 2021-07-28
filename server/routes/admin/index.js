@@ -37,9 +37,7 @@ router.post('/book', async ctx => {
 router.get('/book', async ctx => {
     const { _id: userId } = analysisToken(ctx.headers.token);
     const books = await bookModel.find({ userId }).lean();
-    ctx.body = {
-        books
-    };
+    ctx.body = books;
 });
 
 module.exports = router;

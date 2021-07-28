@@ -13,7 +13,7 @@ export const getBooks = () => {
             dispatch({ type: CREATE_BOOK_ERROR, error });
         });
         if (res) {
-            dispatch({ type: CREATE_BOOK_SUCCESS, res });
+            dispatch({ type: CREATE_BOOK_SUCCESS, books: res });
         }
     };
 };
@@ -28,7 +28,7 @@ export const createBook = () => {
             dispatch({ type: GET_BOOK_ERROR, error });
         });
         if (res) {
-            dispatch({ type: GET_BOOK_SUCCESS, res });
+            dispatch({ type: GET_BOOK_SUCCESS, books: res });
         }
     };
 };

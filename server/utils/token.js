@@ -2,7 +2,7 @@ const { tokenSecret } = require('../config');
 const jwt = require('jsonwebtoken');
 
 exports.createToken = target => {
-    return jwt.sign(target, tokenSecret, { expiresIn: 60 * 60 * 4 });
+    return jwt.sign(target, tokenSecret, { expiresIn: '96h' });
 };
 
 exports.analysisToken = token => {
