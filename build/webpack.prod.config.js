@@ -14,6 +14,18 @@ const webpackConfig = merge(baseWebpackConfig, {
         chunkFilename: utils.assetsPath('js/[id].[chunkhash].js'),
         crossOriginLoading: 'anonymous',
     },
+    // 拆包
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /(react|react-dom)/,
+                    name: 'vendor',
+                    chunks: 'all'
+                }
+            }
+        }
+    },
     plugins: [
         new HtmlWebpackPlugin({
             inject: true,
