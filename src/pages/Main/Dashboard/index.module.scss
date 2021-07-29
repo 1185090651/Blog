@@ -5,16 +5,15 @@
   .books {
     display: flex;
     flex-direction: column;
-    width: 260px;
+    width: 200px;
     height: 100%;
-    background-color: #fafafa;
     // background-color: red;
     border-right: 1px solid #eee;
 
     &-create {
       display: flex;
       justify-content: space-between;
-      padding: 14px 12px 6px;
+      padding: 14px 16px 6px;
       border-bottom: 1px solid #eee;
 
       .title {
@@ -42,15 +41,37 @@
 
       .book {
         position: relative;
-        height: 100px;
-        padding: 0 12px;
-        cursor: pointer;
+
+        :global(.ant-collapse-header) {
+          padding: 8px 40px 8px 16px;
+
+          .article-create {
+            display: none;
+            width: 22px;
+            height: 22px;
+            text-align: center;
+            border-radius: 2px;
+          }
+
+          &:hover {
+            background-color: #eee;
+
+            .article-create {
+              display: block;
+              background-color: #ddd;
+            }
+          }
+        }
+
+        :global(.ant-collapse-content-box) {
+          padding: 0;
+        }
 
         &::after {
           position: absolute;
           bottom: 0;
-          left: 12px;
-          width: 236px;
+          left: 16px;
+          width: 168px;
           height: 1px;
           background-color: #eee;
           transform: scaleY(0.5);
@@ -61,15 +82,12 @@
           line-height: 46px;
         }
 
-        &-description {
-          display: -webkit-box;
-          overflow: hidden;
-          color: #aaa;
-          font-size: 13px;
-          text-overflow: -o-ellipsis-lastline;
-          text-overflow: ellipsis;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
+        .article {
+          padding: 4px 24px;
+
+          &:hover {
+            background-color: #efefef;
+          }
         }
       }
 

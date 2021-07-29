@@ -1,4 +1,4 @@
-import { CREATE_BOOK_PENDING, CREATE_BOOK_SUCCESS, CREATE_BOOK_ERROR } from '../constants';
+import { GET_BOOK_PENDING, GET_BOOK_SUCCESS, GET_BOOK_ERROR } from '../constants';
 
 
 const initialState: BookState = {
@@ -27,15 +27,15 @@ export interface BookState {
 
 export const books = (state = initialState, action: any): BookState => {
     switch (action.type) {
-        case CREATE_BOOK_PENDING:
+        case GET_BOOK_PENDING:
             return {
                 ...state, loading: true
             };
-        case CREATE_BOOK_SUCCESS:
+        case GET_BOOK_SUCCESS:
             return {
                 ...state, books: action.books, loading: false, isLogin: true
             };
-        case CREATE_BOOK_ERROR:
+        case GET_BOOK_ERROR:
             return {
                 ...state, error: action.error, loading: false
             };

@@ -5,30 +5,30 @@ import { Dispatch } from 'redux';
 
 export const getBooks = () => {
     return async (dispatch: Dispatch) => {
-        dispatch({ type: CREATE_BOOK_PENDING });
+        dispatch({ type: GET_BOOK_PENDING });
         const res = await request({
             url: '/api/admin/book',
             method: 'GET',
         }).catch(error => {
-            dispatch({ type: CREATE_BOOK_ERROR, error });
+            dispatch({ type: GET_BOOK_ERROR, error });
         });
         if (res) {
-            dispatch({ type: CREATE_BOOK_SUCCESS, books: res });
+            dispatch({ type: GET_BOOK_SUCCESS, books: res });
         }
     };
 };
 
 export const createBook = () => {
     return async (dispatch: Dispatch) => {
-        dispatch({ type: GET_BOOK_PENDING });
+        dispatch({ type: CREATE_BOOK_PENDING });
         const res = await request({
             url: '/api/admin/book',
             method: 'POST',
         }).catch(error => {
-            dispatch({ type: GET_BOOK_ERROR, error });
+            dispatch({ type: CREATE_BOOK_ERROR, error });
         });
         if (res) {
-            dispatch({ type: GET_BOOK_SUCCESS, books: res });
+            dispatch({ type: CREATE_BOOK_SUCCESS, books: res });
         }
     };
 };
