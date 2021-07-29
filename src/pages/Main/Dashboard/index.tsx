@@ -19,10 +19,9 @@ const index = () => {
         dispatch(getBooks());
     }, []);
 
-    function createArticle (e: any) {
+    function createArticle (e: React.MouseEvent<HTMLElement>) {
         e.stopPropagation();
         setVisible(true);
-
     }
     return (
         <div className={style.dashboard}>
@@ -38,7 +37,7 @@ const index = () => {
                         : <div className={style['books-list']}>
                             <Collapse defaultActiveKey={['1']} onChange={callback} bordered={false} expandIconPosition={'right'} ghost>
                                 {books.map((item, idx) => (
-                                    <Panel className={style.book} header={item?.name} key={idx} extra={<span className={style['article-create']} onClickCapture={e => {createArticle(e);}}><PlusOutlined /></span>}>
+                                    <Panel className={style.book} header={item?.name} key={idx} extra={<span className={style['article-create']} onClickCapture={createArticle}><PlusOutlined /></span>}>
                                         <div className={style.article}>{item?.description}</div>
                                         <div className={style.article}>{item?.description}</div>
                                         <div className={style.article}>{item?.description}</div>
