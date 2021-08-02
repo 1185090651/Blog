@@ -10,7 +10,6 @@ const articleSchema = new Schema({
 
 const bookSchema = new Schema({
     name: { type: String, required: true },
-    description: { type: String, default: '' },
     userId: { type: String, required: true },
     articles: { type: [articleSchema], default: [] }
 }, { timestamps: true, versionKey: false });

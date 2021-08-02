@@ -3,6 +3,7 @@ module.exports = () => {
     return async (ctx, next) => {
         // 没有数据
         if (!ctx.headers['content-type']) {
+            ctx.request.body = {};
             await next();
         } else {
             const body = await new Promise(res => {

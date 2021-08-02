@@ -18,12 +18,17 @@ export const getBooks = () => {
     };
 };
 
-export const createBook = () => {
+export interface CreateBookParams {
+    name: string;
+}
+
+export const createBook = (data: CreateBookParams) => {
     return async (dispatch: Dispatch) => {
         dispatch({ type: CREATE_BOOK_PENDING });
         const res = await request({
             url: '/api/admin/book',
             method: 'POST',
+            data
         }).catch(error => {
             dispatch({ type: CREATE_BOOK_ERROR, error });
         });

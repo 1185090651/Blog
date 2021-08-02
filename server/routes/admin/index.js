@@ -13,7 +13,7 @@ router.post('/token', async ctx => {
 
 // 创建知识库
 router.post('/book', async ctx => {
-    const { name, description } = ctx.request.body;
+    const { name } = ctx.request.body;
     if (!name) {
         ctx.throw(422, 'name field missing');
     }
@@ -25,18 +25,17 @@ router.post('/book', async ctx => {
     }
     const { _id: userId } = analysisToken(ctx.headers.token);
     const book = new bookModel({
-        name, description, userId
+        name, userId
     });
-    await book.save();
-    ctx.body = {
-        message: '添加知识库成功'
-    };
+    const data = await book.save();
+    ctx.body = data;
 });
 
 // 查询知识库
 router.get('/book', async ctx => {
     const { _id: userId } = analysisToken(ctx.headers.token);
-    const books = await bookModel.find({ userId }).lean();
+    // 倒序
+    const books = await bookModel.find({ userId }).lean().sort({ _id: -1 });
     ctx.body = books;
 });
 

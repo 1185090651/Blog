@@ -7,13 +7,12 @@
     flex-direction: column;
     width: 200px;
     height: 100%;
-    // background-color: red;
     border-right: 1px solid #eee;
 
-    &-create {
+    &-nav {
       display: flex;
       justify-content: space-between;
-      padding: 14px 16px 6px;
+      padding: 14px 10px 6px 16px;
       border-bottom: 1px solid #eee;
 
       .title {
@@ -21,16 +20,36 @@
         font-size: 16px;
       }
 
-      .create {
+      .options {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 22px;
-        cursor: pointer;
 
-        &:hover {
-          background-color: #e8e8e8;
-          border-radius: 2px;
+        .create {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 22px;
+          height: 22px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #e8e8e8;
+            border-radius: 2px;
+          }
+        }
+
+        .more {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 16px;
+          height: 22px;
+          margin-left: 6px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #e8e8e8;
+            border-radius: 2px;
+          }
         }
       }
     }
@@ -58,7 +77,10 @@
 
             .article-create {
               display: block;
-              background-color: #ddd;
+
+              &:hover {
+                background-color: #ddd;
+              }
             }
           }
         }

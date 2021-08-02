@@ -1,4 +1,4 @@
-import { GET_BOOK_PENDING, GET_BOOK_SUCCESS, GET_BOOK_ERROR } from '../constants';
+import { GET_BOOK_PENDING, GET_BOOK_SUCCESS, GET_BOOK_ERROR, CREATE_BOOK_SUCCESS } from '../constants';
 
 
 const initialState: BookState = {
@@ -39,6 +39,9 @@ export const books = (state = initialState, action: any): BookState => {
             return {
                 ...state, error: action.error, loading: false
             };
+        case CREATE_BOOK_SUCCESS:
+            state.books.unshift(action.books);
+            return state;
         default:
             return state;
     }
