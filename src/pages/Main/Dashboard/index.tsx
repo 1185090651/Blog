@@ -30,6 +30,7 @@ const index = () => {
         await dispatch(createBook({ name: createInputRef.current?.state.value }));
         setIsShowCreateInput(false);
     };
+
     useEffect(() => {
         if (createInputRef.current) {
             createInputRef.current.focus();
@@ -55,7 +56,7 @@ const index = () => {
                         : <div className={style['books-list']}>
                             <Collapse defaultActiveKey={['1']} onChange={callback} bordered={false} expandIconPosition={'right'} ghost>
                                 {
-                                    isShowCreateInput ? <Panel className={style.book} header={<Input defaultValue="名称" onPressEnter={createInputEnterHandler} ref={createInputRef} />} key="create" /> : ''
+                                    isShowCreateInput ? <Panel className={style.book} header={<Input defaultValue="名称" onPressEnter={createInputEnterHandler} ref={createInputRef} onBlur={createInputEnterHandler} />} key="create" /> : ''
                                 }
                                 {books.map((item, idx) => (
                                     <Panel className={style.book} header={item?.name} key={idx} extra={<span className={style['article-create']} onClickCapture={createArticle}><PlusOutlined /></span>}>
