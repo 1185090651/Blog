@@ -1,4 +1,4 @@
-import { GET_BOOK_PENDING, GET_BOOK_SUCCESS, GET_BOOK_ERROR, CREATE_BOOK_SUCCESS } from '../constants';
+import { GET_BOOK_PENDING, GET_BOOK_SUCCESS, GET_BOOK_ERROR, CREATE_BOOK_SUCCESS, CREATE_ARTICLE_SUCCESS } from '../constants';
 
 
 const initialState: BookState = {
@@ -42,6 +42,8 @@ export const books = (state = initialState, action: any): BookState => {
         case CREATE_BOOK_SUCCESS:
             state.books.unshift(action.books);
             return state;
+        case CREATE_ARTICLE_SUCCESS:
+            state.books.find(book => book?._id === action.bookId)?.articles.push({ title: action.title, content: '' });
         default:
             return state;
     }

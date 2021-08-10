@@ -19,9 +19,7 @@ router.post('/book', async ctx => {
     }
     const books = await bookModel.find({ name });
     if (books.length) {
-        return ctx.body = {
-            message: '该知识库已存在'
-        };
+        ctx.throw(423, '该知识库已存在');
     }
     const { _id: userId } = analysisToken(ctx.headers.token);
     const book = new bookModel({
@@ -38,5 +36,29 @@ router.get('/book', async ctx => {
     const books = await bookModel.find({ userId }).lean().sort({ _id: -1 });
     ctx.body = books;
 });
+
+// 添加文章
+router.post('/article', async ctx => {
+    const { title, bookId } = ctx.request.body;
+    if (!title) {
+        ctx.throw(422, 'title field missing');
+    }
+    const book = await bookModel.findOne({ _id: bookId });
+    const haveSameArticle = book.articles.some(item => {
+        return item.title === title;
+    });
+    if (haveSameArticle) {
+        ctx.throw(423, '文章名称重复！');
+    }
+    const res = await bookModel.updateOne({ _id: bookId }, { $addToSet: { articles: [{ title }] } });
+    if (res.n) {
+        ctx.body = 1;
+    }
+});
+
+// 修改文章
+// router.post('/article/:id', async ctx => {
+
+// });
 
 module.exports = router;

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import CreateBookModel from './components/CreateBookModel';
-import { getBooks, createBook } from '@/store/actions/book';
+import { getBooks, createBook, createArticleAction } from '@/store/actions/book';
 import style from './index.module.scss';
 import { PlusOutlined, MoreOutlined } from '@ant-design/icons';
 import { IState } from '@/store/reducers';
@@ -10,7 +9,6 @@ import { Collapse, Skeleton, Input } from 'antd';
 const { Panel } = Collapse;
 
 const index = () => {
-    const [visible, setVisible] = useState(false);
     const createInputRef = useRef<Input | null>(null);
 
     const [isShowCreateInput, setIsShowCreateInput] = useState(false);
@@ -24,12 +22,15 @@ const index = () => {
 
     function createArticle (e: React.MouseEvent<HTMLInputElement>) {
         e.stopPropagation();
-        setVisible(true);
     }
     const createInputEnterHandler = async () => {
         await dispatch(createBook({ name: createInputRef.current?.state.value }));
         setIsShowCreateInput(false);
     };
+
+    // const createArticleEnterHandler = async (_id: string|undefined) => {
+    //     await dispatch(createArticleAction({ title: createArticleRef.current?.state.value, bookId: _id }));
+    // };
 
     useEffect(() => {
         if (createInputRef.current) {
@@ -37,6 +38,7 @@ const index = () => {
             createInputRef.current.select();
         }
     }, [isShowCreateInput]);
+
     return (
         <div className={style.dashboard} >
             <section className={style.books}>
@@ -44,7 +46,6 @@ const index = () => {
                     <span className={style.title}>知识库</span>
                     <div className={style.options}>
                         <span className={style.create} onClick={() => setIsShowCreateInput(true)}><PlusOutlined /></span>
-                        <CreateBookModel visible={visible} setVisible={setVisible} />
                         <span className={style.more}>
                             <MoreOutlined />
                         </span>
@@ -54,16 +55,17 @@ const index = () => {
                     loading ?
                         <Skeleton />
                         : <div className={style['books-list']}>
-                            <Collapse defaultActiveKey={['1']} onChange={callback} bordered={false} expandIconPosition={'right'} ghost>
+                            <Collapse defaultActiveKey={['0']} onChange={callback} bordered={false} expandIconPosition={'right'} ghost>
                                 {
-                                    isShowCreateInput ? <Panel className={style.book} header={<Input defaultValue="名称" onPressEnter={createInputEnterHandler} ref={createInputRef} onBlur={createInputEnterHandler} />} key="create" /> : ''
+                                    isShowCreateInput ? <Panel className={style.book} header={<Input defaultValue="名称" onPressEnter={createInputEnterHandler} ref={createInputRef} onBlur={createInputEnterHandler} />} key="create" /> : null
                                 }
                                 {books.map((item, idx) => (
                                     <Panel className={style.book} header={item?.name} key={idx} extra={<span className={style['article-create']} onClickCapture={createArticle}><PlusOutlined /></span>}>
-                                        <div className={style.article}>{item?.description}</div>
-                                        <div className={style.article}>{item?.description}</div>
-                                        <div className={style.article}>{item?.description}</div>
-                                        <div className={style.article}>{item?.description}</div>
+                                        {
+                                            item?.articles.map((article, i) => (
+                                                <div className={style.article} key={i}>{article?.title}</div>
+                                            ))
+                                        }
                                     </Panel>
                                 ))}
                             </Collapse>

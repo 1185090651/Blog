@@ -40,7 +40,7 @@ service.interceptors.response.use(
         if (error.response?.status === 403) {
             location.href = '#/login';
         }
-        return Promise.reject(error.message);
+        return Promise.reject(error.response?.data || error.message);
     }
 );
 
