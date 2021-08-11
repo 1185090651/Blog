@@ -16,7 +16,6 @@ portfinder.getPort({ port: PORT }, (err, port) => {
     PORT = process.env.PORT = port;
     const devWebpackConfig = merge(baseWebpackConfig, {
         mode: 'development',
-        // cheap-module-eval-source-map is faster for development
         devtool: config.dev.devtool,
         plugins: [
             new HtmlWebpackPlugin({
