@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBooks, createBook, createArticleAction } from '@/store/actions/book';
+import { getBooks, createBook } from '@/store/actions/book';
 import style from './index.module.scss';
 import { PlusOutlined, MoreOutlined } from '@ant-design/icons';
 import { IState } from '@/store/reducers';

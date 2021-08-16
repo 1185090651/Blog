@@ -72,6 +72,26 @@ module.exports = {
                 use: getStyleLoaders(true, 'sass-loader'),
             },
             {
+                test: /\.less$/,
+                use: [{
+                    loader: 'style-loader',
+                }, {
+                    loader: 'css-loader', // translates CSS into CommonJS
+                }, {
+                    loader: 'less-loader', // compiles Less to CSS
+                    options: {
+                        lessOptions: { // 如果使用less-loader@5，请移除 lessOptions 这一级直接配置选项。
+                            modifyVars: {
+                                'primary-color': '#222',
+                                'link-color': '#222',
+                                'border-radius-base': '4px',
+                            },
+                            javascriptEnabled: true,
+                        },
+                    },
+                }]
+            },
+            {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 type: 'asset',
                 parser: {

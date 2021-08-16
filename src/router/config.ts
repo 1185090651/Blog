@@ -4,7 +4,12 @@ import { lazy } from 'react';
 import Main from '../pages/Main';
 const Login = lazy(() => import('../pages/Main/Login/index'));
 const Dashboard = lazy(() => import('../pages/Main/Dashboard'));
+const Editor = lazy(() => import('../pages/Editor'));
 const routes = [
+    {
+        path: '/edit',
+        component: Editor
+    },
     {
         path: '/',
         component: Main,
